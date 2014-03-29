@@ -11,8 +11,8 @@
     "kokaku",
     "backbone",
     "model",
-		"view",
-		"router"	
+    "view",
+    "router"
   ],
   "license": "MIT",
   "ignore": [
@@ -25,6 +25,7 @@
   "dependencies": {
     "nunjucks": "~1.0.2",
     "jquery": "~2.1.0",
-    "underscore": "~1.6.0"
+    "underscore": "~1.6.0",
+    "q": "~2.0.0"
   }
 }

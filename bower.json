@@ -1,0 +1,30 @@
+{
+  "name": "kokaku",
+  "main": "kokaku.js",
+  "version": "0.0.1",
+  "homepage": "https://github.com/jcouyang/kokaku",
+  "authors": [
+    "Jichao Ouyang <oyanglulu@gmail.com>"
+  ],
+  "description": "micro javascript mvc framework",
+  "keywords": [
+    "kokaku",
+    "backbone",
+    "model",
+		"view",
+		"router"	
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "nunjucks": "~1.0.2",
+    "jquery": "~2.1.0",
+    "underscore": "~1.6.0"
+  }
+}

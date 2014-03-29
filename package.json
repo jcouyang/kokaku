@@ -1,0 +1,28 @@
+{
+  "name": "kokaku",
+  "version": "0.1.0",
+  "description": "micro JS MVC framework",
+  "main": "kokaku.js",
+  "scripts": {
+    "test": "grunt"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jcouyang/kokaku.git"
+  },
+  "keywords": [
+    "kokaku",
+    "backbone",
+    "framework"
+  ],
+  "author": "Jichao Ouyang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jcouyang/kokaku/issues"
+  },
+  "homepage": "https://github.com/jcouyang/kokaku",
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-cli": "^0.1.13"
+  }
+}

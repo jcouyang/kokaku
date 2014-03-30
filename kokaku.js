@@ -59,7 +59,7 @@ _.extend(Model.prototype,{
 				}
 			},function(){
 				self.data.reject();
-				self.updated.reject()
+				self.updated.reject();
 			});
 	},
 	save:function(data){
@@ -179,7 +179,7 @@ Router.prototype.get = function(url,callback){
 	};
 	while((param = paramRegx.exec(url))!==null){
 		route.paramNames.push(param[1]);
-		route.regex = route.regex.replace(param[0],"([^/.\\\\]+)").replace(":","");
+		route.regex = route.regex.replace(param[0],"([^/.\\\\]+)");
 	}
 	this.routes.push(route);
 };

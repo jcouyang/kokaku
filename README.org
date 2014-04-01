@@ -10,7 +10,12 @@
                                                         \/___/
 #+END_SRC
 
-** Setup
+** Why kokaku
+- Micro, only 100+ row of code
+- easy to use, just config View Model and Route, then it works.
+- Data cache with localStorage, really fast the second time you load the same page.
+
+** Install
 #+BEGIN_SRC sh
 bower install kokaku
 #+END_SRC
@@ -18,6 +23,28 @@ bower install kokaku
 ** How to Use it
 I think [[https://github.com/blogist/blogist/blob/master/src/blogist.js][blogist]] is a good example :metal:
 
-** Contibution
+*** Model
+#+BEGIN_SRC javascript
+var bloglistModel = new Model("bloglist","get@https://api.github.com/users/jcouyang/gists");
+#+END_SRC
+*** View
+#+BEGIN_SRC javascript
+var BlogDetailView = View.extend({
+el:$(".container .article"),
+template:"src/templates/article.html"
+});
+#+END_SRC
+*** Router
+#+BEGIN_SRC javascript
+router.get("/gist/:gistid/?",function(params,data){
+blogDetailOf(params.gistid);
+});
+#+END_SRC
 
+** Contibution
+#+BEGIN_SRC sh
+npm install
+grunt mocha
+#+END_SRC
 ** Issues
+[[https://github.com/jcouyang/kokaku/issues]]

@@ -1,7 +1,3 @@
-if(window.location.pathname!="/"){
-	window.location = window.location.origin + "#" +window.location.pathname.replace(".html","");
-}
-
 var extend = function(props){
 	var parent = this,child;
     child = function(){

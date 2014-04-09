@@ -81,16 +81,16 @@ _.extend(View.prototype, {
 			_.extend(this,arguments[0]);
 		this.model.fetch();
 	},
-	render:function(){
+	render:function(extra){
 		var self = this;
 		this.model.data.promise.then(function(data){
-			self.el.html(self.templateEngine.render(self.template, {data:data}));
+			self.el.html(self.templateEngine.render(self.template, {data:_(data).extend(extra)}));
 			self.bindEvent();
 		},function(){
 			self.el.html(self.templateEngine.render(self.template));
 		});
 		this.model.updated.promise.then(function(data){
-			self.el.html(self.templateEngine.render(self.template, {data:data}));
+			self.el.html(self.templateEngine.render(self.template, {data:_(data).extend(extra)}));
 			self.bindEvent();
 		},function(){
 			self.el.html(self.templateEngine.render(self.template));

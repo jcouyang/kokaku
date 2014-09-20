@@ -16,7 +16,7 @@ var extend = function(props){
 
 Model = function(name,url){
 	this.name = name;
-	this.data = Q.defer();
+	this.local = Q.defer();
 	this.updated = Q.defer();
 	this.localData={};
 	this.url=url;
@@ -33,10 +33,23 @@ _.extend(Model.prototype,{
 		return localData && JSON.parse(localData)[item];
 	},
 	fetch:function(){
+		var self = this;		
 		this.localData = JSON.parse(this.storage.getItem(this.name));
-		if (this.localData)
-			this.data.resolve(this.localData);
-		this.refetch();
+		if (this.localData){
+			this.local.resolve(this.localData);
+		}			
+		this.refetch()
+			.then(function(data){
+				self.local.resolve(data);
+				if (!_.isEqual(data,self.localData)){
+					self.updated.resolve(data);
+					self.save(data);
+					self.localData = data;
+				}
+			},function(){
+				self.local.reject();
+				self.updated.reject();
+			});
 	},
 	refetch:function(){
 		var self = this;
@@ -45,18 +58,8 @@ _.extend(Model.prototype,{
 		return Q($.ajax(_.extend({
 			url:methodAndUrl[1],
 			method:methodAndUrl[0]
-		},self.dataOptions)))
-			.then(function(data){
-				self.data.resolve(data);
-				if (!_.isEqual(data,self.localData)){
-					self.updated.resolve(data);
-					self.save(data);
-					self.localData = data;
-				}
-			},function(){
-				self.data.reject();
-				self.updated.reject();
-			});
+		},self.dataOptions)));
+
 	},
 	save:function(data){
 		this.storage.setItem(this.name,JSON.stringify(data));
@@ -78,18 +81,24 @@ _.extend(View.prototype, {
 	events:"click body:",
 	initialize:function(options){
 		if(arguments[0])
-			_.extend(this,arguments[0]);
+		_.extend(this,arguments[0]);
 		this.model.fetch();
+	},
+	preProcessData: function(data){
+		return data;
 	},
 	render:function(extra){
 		var self = this;
-		this.model.data.promise.then(function(data){
-			self.el.html(self.templateEngine.render(self.template, {data:_(data).extend(extra)}));
+		this.model.local.promise.then(function(data){
+			data = self.preProcessData(data);
+			var html = self.templateEngine.render(self.template, {data:_(data).extend(extra)});
+			self.el.html(html);
 			self.bindEvent();
 		},function(){
 			self.el.html(self.templateEngine.render(self.template));
 		});
 		this.model.updated.promise.then(function(data){
+			data = self.preProcessData(data);
 			self.el.html(self.templateEngine.render(self.template, {data:_(data).extend(extra)}));
 			self.bindEvent();
 		},function(){
@@ -109,7 +118,7 @@ _.extend(View.prototype, {
 			if (selector==''){
 				self.el.on(eventName, _.bind(self[events[key]],self));
 			} else{
-				self.el.find(selector).on(eventName, _.bind(self[events[key]],self));
+				$(selector).on(eventName, _.bind(self[events[key]],self));
 			}
 		});
 	}

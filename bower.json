@@ -1,7 +1,7 @@
 {
   "name": "kokaku",
   "main": "kokaku.js",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "homepage": "https://github.com/jcouyang/kokaku",
   "authors": [
     "Jichao Ouyang <oyanglulu@gmail.com>"

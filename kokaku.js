@@ -134,7 +134,7 @@ Router = function(){
 	var loaded = false;
 	var findRoute = function(e){
 		var values;
-		var hash = window.location.hash.replace("#","") || "/";
+		var hash = window.location.hash.replace("#","") || location.pathname || "/";
 		_.each(self.routes,function(route){
 			var regex = new RegExp(route.regex,"g");
 			if((values = regex.exec(hash))!==null){

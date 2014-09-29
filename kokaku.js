@@ -97,7 +97,7 @@ _.extend(View.prototype, {
 		},function(){
 			self.el.html(self.templateEngine.render(self.template));
 		});
-		this.model.updated.promise.then(function(data){
+		return this.model.updated.promise.then(function(data){
 			data = self.preProcessData(data);
 			self.el.html(self.templateEngine.render(self.template, {data:_(data).extend(extra)}));
 			self.bindEvent();
